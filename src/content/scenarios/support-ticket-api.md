@@ -36,7 +36,7 @@ workItems:
     title: High-priority tickets are buried at the bottom of the queue
     points: 20
 regressionPoints: 20
-published: false
+published: true
 order: 1
 ---
 
