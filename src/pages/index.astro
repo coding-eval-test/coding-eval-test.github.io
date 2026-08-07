@@ -1,8 +1,113 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ScenarioCard from '../components/ScenarioCard.astro';
+
+const scenarios = (await getCollection('scenarios', ({ data }) => data.published))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const steps = [
+  {
+    title: 'Pick a scenario',
+    body: 'Each one is a working codebase with a backlog of stories and defects, sized to a single sitting.',
+  },
+  {
+    title: 'Work the backlog',
+    body: 'Open it in a Codespace or clone it locally. Run the tests as you go — the same ones that grade you.',
+  },
+  {
+    title: 'Push for feedback',
+    body: 'Every push scores your work item by item, and flags whether you broke anything that already worked.',
+  },
+];
 ---
 
-<BaseLayout title="Scenario Practice" description="Placeholder">
-  <h1>Scenario Practice</h1>
-  <p>Layout smoke test.</p>
+<BaseLayout
+  title="Scenario Practice — realistic coding interview exercises"
+  description="Practise enterprise-style coding interviews: extend and debug a real codebase instead of solving puzzles."
+>
+  <section class="hero">
+    <h1>Practise the interview you will actually sit</h1>
+    <p class="lede">
+      Enterprise hiring loops do not ask you to reverse a linked list. They hand
+      you a codebase you have never seen and ask you to ship. These scenarios do
+      the same: real projects, real backlogs, real regressions to avoid.
+    </p>
+    <p class="actions">
+      <a class="button" href="/scenarios/">Browse scenarios</a>
+      <a class="button secondary" href="/getting-started/">How it works</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="steps">
+      {
+        steps.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  {
+    scenarios.length > 0 && (
+      <section>
+        <h2>Available now</h2>
+        <ul class="card-grid">
+          {scenarios.map((scenario) => (
+            <ScenarioCard scenario={scenario} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="prose">
+    <h2>What makes these different</h2>
+    <p>
+      The starting code is deliberately good — layered, tested, conventional. The
+      skill being measured is not tolerance for a mess; it is whether you can read
+      an unfamiliar system, work the way its team works, and leave it better than
+      you found it.
+    </p>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-12) var(--space-8);
+  }
+
+  .lede {
+    max-width: var(--measure);
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    padding-left: var(--space-6);
+  }
+
+  .steps h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .steps p {
+    margin-top: 0;
+    color: var(--color-text-muted);
+  }
+</style>
