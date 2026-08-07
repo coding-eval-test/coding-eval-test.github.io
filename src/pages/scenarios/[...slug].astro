@@ -1,0 +1,93 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkItemTable from '../../components/WorkItemTable.astro';
+
+export async function getStaticPaths() {
+  const scenarios = await getCollection('scenarios', ({ data }) => data.published);
+  return scenarios.map((scenario) => ({
+    params: { slug: scenario.data.id },
+    props: { scenario },
+  }));
+}
+
+interface Props {
+  scenario: CollectionEntry<'scenarios'>;
+}
+
+const { scenario } = Astro.props;
+const { data } = scenario;
+const { Content } = await render(scenario);
+const hours = (data.estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '');
+---
+
+<BaseLayout title={`${data.title} — Scenario Practice`} description={data.summary}>
+  <article>
+    <h1>{data.title}</h1>
+    <p class="meta">
+      <span class="tag">{data.difficulty}</span>
+      <span class="tag">~{hours} h</span>
+      {data.stack.map((item) => <span class="tag">{item}</span>)}
+    </p>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <h2>What you will practise</h2>
+    <ul class="prose">
+      {data.objectives.map((objective) => <li>{objective}</li>)}
+    </ul>
+
+    {
+      data.prerequisites.length > 0 && (
+        <>
+          <h2>Before you start</h2>
+          <ul class="prose">
+            {data.prerequisites.map((item) => <li>{item}</li>)}
+          </ul>
+        </>
+      )
+    }
+
+    <h2>The backlog</h2>
+    <p class="prose">
+      Full descriptions ship inside the repository, in <code>docs/user-stories.md</code>
+      and <code>docs/bug-reports.md</code>.
+    </p>
+    <WorkItemTable workItems={data.workItems} regressionPoints={data.regressionPoints} />
+
+    <h2>Start</h2>
+    <p class="prose">
+      Starting creates your own private copy of the scenario repository. Open it in
+      a Codespace and work in the browser, or clone it locally — either way, every
+      push runs the same automated checks and reports your score.
+    </p>
+    <p class="actions">
+      <a class="button" href={`${data.templateRepoUrl}/generate`}>
+        Start this scenario
+      </a>
+      <a class="button secondary" href={data.templateRepoUrl}>
+        Browse the repository
+      </a>
+    </p>
+
+    <p class="prose">
+      New to the workflow? Read <a href="/getting-started/">getting started</a> first.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+</style>

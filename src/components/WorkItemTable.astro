@@ -1,0 +1,57 @@
+---
+interface WorkItem {
+  id: string;
+  type: 'story' | 'bug';
+  title: string;
+  points: number;
+}
+
+interface Props {
+  workItems: WorkItem[];
+  regressionPoints: number;
+}
+
+const { workItems, regressionPoints } = Astro.props;
+const total = workItems.reduce((sum, item) => sum + item.points, 0) + regressionPoints;
+---
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Type</th>
+        <th scope="col">What it covers</th>
+        <th scope="col">Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        workItems.map((item) => (
+          <tr>
+            <td><code>{item.id}</code></td>
+            <td>{item.type === 'story' ? 'User story' : 'Defect'}</td>
+            <td>{item.title}</td>
+            <td>{item.points}</td>
+          </tr>
+        ))
+      }
+      {
+        regressionPoints > 0 && (
+          <tr>
+            <td><code>Regression</code></td>
+            <td>Existing behaviour</td>
+            <td>Everything that already worked must keep working</td>
+            <td>{regressionPoints}</td>
+          </tr>
+        )
+      }
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row" colspan="3">Total</th>
+        <td>{total}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
