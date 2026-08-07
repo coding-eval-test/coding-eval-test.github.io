@@ -72,10 +72,16 @@ git diff template/baseline HEAD</code></pre>
 
     <h2>Adding a scenario</h2>
     <p>
-      Scenarios are markdown files in this site's repository. Add one file with the
-      required frontmatter, set <code>published</code> to true, and open a pull
-      request — the build validates the shape and fails loudly on anything
-      missing.
+      A scenario is three things: a public template repository holding the code,
+      the tests, and the work-item docs; a private repository holding the
+      reference solution; and one markdown file in this site's repository that
+      lists it in the catalog.
+    </p>
+    <p>
+      The site file is the last step, not the whole job. Add it with the required
+      frontmatter, set <code>published</code> to true, and open a pull request —
+      the build validates the shape, and CI checks the points it advertises
+      against the points the template actually grades.
     </p>
   </div>
 </BaseLayout>
