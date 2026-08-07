@@ -2,6 +2,7 @@
 // Dependency-free on purpose: this runs in CI with nothing installed but Node.
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { parseFrontmatter } from './frontmatter.mjs';
 
 const CONTENT_DIR = 'src/content/scenarios';
 const URL_KEYS = ['templateRepoUrl'];
@@ -10,13 +11,12 @@ const files = (await readdir(CONTENT_DIR)).filter((name) => name.endsWith('.md')
 const targets = [];
 
 for (const file of files) {
-  const source = await readFile(join(CONTENT_DIR, file), 'utf8');
-  const frontmatter = source.split('---')[1] ?? '';
+  const frontmatter = parseFrontmatter(await readFile(join(CONTENT_DIR, file), 'utf8'));
 
-  for (const line of frontmatter.split('\n')) {
-    const match = line.match(/^\s*([A-Za-z]+):\s*(https?:\/\/\S+)\s*$/);
-    if (match && URL_KEYS.includes(match[1])) {
-      targets.push({ file, key: match[1], url: match[2] });
+  for (const key of URL_KEYS) {
+    const url = frontmatter[key];
+    if (url && /^https?:\/\/\S+$/.test(url)) {
+      targets.push({ file, key, url });
     }
   }
 }

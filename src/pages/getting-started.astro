@@ -24,9 +24,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h2>Option A — GitHub Codespaces</h2>
     <p>
       From your repository, choose <strong>Code → Codespaces → Create codespace</strong>.
-      The environment installs the SDK and restores packages for you.
+      The environment installs the SDK and restores packages for you. The
+      scenario's README gives the one command that starts it.
     </p>
-    <pre><code>dotnet run --project src/InventoryApi</code></pre>
     <p>
       The database is created, migrated, and seeded on first run. When the port is
       forwarded, open <code>/swagger</code> to explore the API. Debugging works
@@ -47,11 +47,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <h2>Option B — your own machine</h2>
     <p>
-      Install the .NET SDK named on the scenario page, clone your repository, then:
+      Install the .NET SDK named on the scenario page, clone your repository, then
+      run <code>dotnet restore</code> and the run command from the scenario's
+      README. No database setup, no Docker, no other services.
     </p>
-    <pre><code>dotnet restore
-dotnet run --project src/InventoryApi</code></pre>
-    <p>No database setup, no Docker, no other services.</p>
 
     <h2>Run the tests</h2>
     <p>
@@ -59,7 +58,11 @@ dotnet run --project src/InventoryApi</code></pre>
       already worked. Run everything:
     </p>
     <pre><code>dotnet test</code></pre>
-    <p>Or get the same per-item breakdown the grader produces:</p>
+    <p>
+      Or get the same per-item breakdown the grader produces. Every scenario
+      ships these two scripts, and they read the same work-item list the grader
+      does, so the split always matches:
+    </p>
     <pre><code># macOS / Linux
 ./scripts/check.sh
 
@@ -68,7 +71,9 @@ dotnet run --project src/InventoryApi</code></pre>
     <p>
       A summary prints one line per work item. Your goal is to turn each
       <code>FAIL</code> into a <code>PASS</code> while
-      <code>Regression</code> stays green.
+      <code>Regression</code> stays green. <code>NO TESTS</code> means the work
+      item has no tests to run at all — that is a problem with the scenario, not
+      with your work; tell whoever runs your cohort.
     </p>
 
     <h2>Get your feedback</h2>

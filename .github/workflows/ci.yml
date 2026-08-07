@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Type-check, build, and verify links
+    name: Type-check, build, and verify scenario data
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -26,5 +26,14 @@ jobs:
       - name: Build (includes astro check)
         run: npm run build
 
+      - name: Unit tests for the CI scripts
+        run: npm test
+
       - name: Verify outbound scenario links
         run: npm run check:links
+
+      # Fetches each template repo's scenario.json. The site and the templates are
+      # separate repositories, so nothing else stops the advertised points drifting
+      # from the points actually graded.
+      - name: Scenario points must match what the template grades
+        run: npm run check:manifest
