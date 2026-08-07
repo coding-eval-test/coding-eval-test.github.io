@@ -39,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h2>Grading integrity</h2>
     <p>
       The numeric score comes from the tests. Reading the diff against the rubric
-      is yours to do — automated review is not currently part of the loop. Where a
+      is yours to do — automated review is not part of the loop. Where a
       judgement call and the tests disagree, the tests are the record.
     </p>
 
@@ -51,6 +51,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       validate their input, whether the trainee added tests of their own, and
       whether the diff is free of leftovers. The item IDs are stable, so verdicts
       stay comparable between reviewers and across cohorts.
+    </p>
+
+    <h2>Reading the diff</h2>
+    <p>
+      A repository created from a template starts with a single commit and shares
+      no history with the template, so there is nothing local to diff against.
+      Every scenario template carries a <code>baseline</code> tag marking its
+      starting state. Add the template as a second remote and compare:
+    </p>
+    <pre><code>git clone &lt;trainee repo&gt; &amp;&amp; cd &lt;trainee repo&gt;
+git remote add template &lt;template repo URL&gt;
+git fetch template --tags
+git diff template/baseline HEAD</code></pre>
+    <p>
+      Two dots, not three — a three-dot diff needs a merge base, and there isn't
+      one. The template repo URL is on the scenario page under
+      <strong>Browse the repository</strong>.
     </p>
 
     <h2>Adding a scenario</h2>
