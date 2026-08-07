@@ -63,10 +63,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <pre><code>git clone &lt;trainee repo&gt; &amp;&amp; cd &lt;trainee repo&gt;
 git remote add template &lt;template repo URL&gt;
 git fetch template --tags
-git diff template/baseline HEAD</code></pre>
+git diff baseline HEAD</code></pre>
     <p>
-      Two dots, not three — a three-dot diff needs a merge base, and there isn't
-      one. The template repo URL is on the scenario page under
+      The fetched tag lands as <code>baseline</code>, not
+      <code>template/baseline</code> — tags are not namespaced per remote. Two
+      dots, not three: a three-dot diff needs a merge base, and there isn't one.
+      The template repo URL is on the scenario page under
       <strong>Browse the repository</strong>.
     </p>
 
