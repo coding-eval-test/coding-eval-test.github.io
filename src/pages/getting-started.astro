@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Getting started — Scenario Practice"
+  description="How to open a scenario in Codespaces or locally, run the tests, and read your feedback."
+>
+  <div class="prose">
+    <h1>Getting started</h1>
+
+    <h2>Accept the scenario</h2>
+    <p>
+      Open a scenario page and press <strong>Start this scenario</strong>. GitHub
+      creates your own private copy of the repository. Keep it private — it is
+      yours, and Codespaces is free on personal accounts.
+    </p>
+
+    <h2>Option A — GitHub Codespaces</h2>
+    <p>
+      From your repository, choose <strong>Code → Codespaces → Create codespace</strong>.
+      The environment installs the SDK and restores packages for you.
+    </p>
+    <pre><code>dotnet run --project src/InventoryApi</code></pre>
+    <p>
+      The database is created, migrated, and seeded on first run. When the port is
+      forwarded, open <code>/swagger</code> to explore the API. Debugging works
+      with F5.
+    </p>
+    <p>
+      Codespaces has a monthly free allowance on personal accounts. If you run
+      out, everything below works the same on your own machine.
+    </p>
+
+    <h2>Option B — your own machine</h2>
+    <p>
+      Install the .NET SDK named on the scenario page, clone your repository, then:
+    </p>
+    <pre><code>dotnet restore
+dotnet run --project src/InventoryApi</code></pre>
+    <p>No database setup, no Docker, no other services.</p>
+
+    <h2>Run the tests</h2>
+    <p>
+      The suite ships red for every work item and green for everything that
+      already worked. Run everything:
+    </p>
+    <pre><code>dotnet test</code></pre>
+    <p>Or get the same per-item breakdown the grader produces:</p>
+    <pre><code># macOS / Linux
+./scripts/check.sh
+
+# Windows
+./scripts/check.ps1</code></pre>
+    <p>
+      A summary prints one line per work item. Your goal is to turn each
+      <code>FAIL</code> into a <code>PASS</code> while
+      <code>Regression</code> stays green.
+    </p>
+
+    <h2>Get your feedback</h2>
+    <p>
+      Push to your repository. A workflow runs the same checks and reports a score
+      per work item on the Actions tab. Commit as often as you like — every push
+      is graded, and the last one counts.
+    </p>
+
+    <h2>How you are judged beyond the tests</h2>
+    <p>
+      Tests score correctness. A reviewer, assisted by automated review, also looks
+      at whether your work fits the codebase: business logic in the service layer,
+      DTOs at the boundary, validation on new endpoints, tests of your own, and a
+      diff without leftovers. Each scenario ships that rubric in
+      <code>docs/rubric.md</code>. Read it before you start, not after.
+    </p>
+
+    <h2>Ground rules</h2>
+    <ul>
+      <li>Do not edit the shipped tests to make them pass. Add your own instead.</li>
+      <li>
+        Breaking existing behaviour costs more points than leaving a story
+        unfinished. When in doubt, protect what works.
+      </li>
+      <li>
+        Follow the conventions already in the codebase, even where you would have
+        chosen differently. Fitting in is part of the exercise.
+      </li>
+    </ul>
+  </div>
+</BaseLayout>

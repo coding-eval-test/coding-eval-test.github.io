@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="For trainers — Scenario Practice"
+  description="Read a trainee's scorecard and interpret the review rubric."
+>
+  <div class="prose">
+    <h1>For trainers</h1>
+
+    <h2>Running a cohort</h2>
+    <p>
+      Send trainees to the scenario page. Pressing <strong>Start this scenario</strong>
+      creates their own private copy of the repository — nothing to provision and
+      nobody to wait for. Ask them to keep the repo private and to share the link
+      with you when they are done.
+    </p>
+
+    <h2>What gets scored automatically</h2>
+    <p>
+      Every push runs the scenario's test suite in slices — one per work item,
+      plus a regression slice covering behaviour that already worked. The
+      <strong>Grade</strong> workflow writes a scorecard to its run summary, so a
+      trainee opens the latest run to see exactly which items scored. Regression
+      carries real weight by design: shipping a broken change should cost more
+      than shipping less.
+    </p>
+    <p>
+      Because each repository belongs to the trainee, scores are visible to them
+      and to anyone they share the repository with. There is no cohort dashboard.
+    </p>
+
+    <h2>Grading integrity</h2>
+    <p>
+      The numeric score comes from the tests. Reading the diff against the rubric
+      is yours to do — automated review is not currently part of the loop. Where a
+      judgement call and the tests disagree, the tests are the record.
+    </p>
+
+    <h2>The rubric</h2>
+    <p>
+      Tests cannot see whether work fits the codebase it lives in. Each scenario
+      ships a five-item rubric in <code>docs/rubric.md</code> covering where
+      business logic sits, whether DTO boundaries hold, whether new endpoints
+      validate their input, whether the trainee added tests of their own, and
+      whether the diff is free of leftovers. The item IDs are stable, so verdicts
+      stay comparable between reviewers and across cohorts.
+    </p>
+
+    <h2>Adding a scenario</h2>
+    <p>
+      Scenarios are markdown files in this site's repository. Add one file with the
+      required frontmatter, set <code>published</code> to true, and open a pull
+      request — the build validates the shape and fails loudly on anything
+      missing.
+    </p>
+  </div>
+</BaseLayout>
