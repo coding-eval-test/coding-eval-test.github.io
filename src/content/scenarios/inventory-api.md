@@ -45,7 +45,7 @@ workItems:
     points: 15
 regressionPoints: 20
 published: true
-order: 1
+order: 2
 ---
 
 ## The situation
