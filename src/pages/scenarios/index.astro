@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScenarioCard from '../../components/ScenarioCard.astro';
+
+const scenarios = (await getCollection('scenarios', ({ data }) => data.published)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Scenarios — Scenario Practice"
+  description="Browse the available scenario-based coding interview practice exercises."
+>
+  <h1>Scenarios</h1>
+  <p class="prose">
+    Each scenario hands you a working codebase and a backlog. You extend it and
+    fix it the way you would on a team, then push for automated feedback.
+  </p>
+
+  {
+    scenarios.length === 0 ? (
+      <p class="prose">
+        <strong>No scenarios are published yet.</strong> The first one is being
+        finished now — check back shortly.
+      </p>
+    ) : (
+      <ul class="card-grid">
+        {scenarios.map((scenario) => (
+          <ScenarioCard scenario={scenario} />
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>

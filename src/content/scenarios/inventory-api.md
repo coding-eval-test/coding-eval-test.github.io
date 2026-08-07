@@ -44,7 +44,7 @@ workItems:
     title: Product search skips results and misses lowercase names
     points: 15
 regressionPoints: 20
-published: false
+published: true
 order: 1
 ---
 
