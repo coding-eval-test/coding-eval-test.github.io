@@ -45,7 +45,7 @@ workItems:
     title: Sale opens at the wrong moment
     points: 15
 regressionPoints: 20
-published: false
+published: true
 order: 3
 ---
 
