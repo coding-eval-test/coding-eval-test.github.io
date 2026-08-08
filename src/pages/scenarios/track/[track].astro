@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ScenarioCard from '../../../components/ScenarioCard.astro';
+import { TRACKS, type Track } from '../../../tracks';
+
+export async function getStaticPaths() {
+  const scenarios = await getCollection('scenarios', ({ data }) => data.published);
+  return TRACKS.map((track) => ({
+    track,
+    scenarios: scenarios
+      .filter((scenario) => scenario.data.track === track.id)
+      .sort((a, b) => a.data.order - b.data.order),
+  }))
+    .filter(({ scenarios: trackScenarios }) => trackScenarios.length > 0)
+    .map(({ track, scenarios: trackScenarios }) => ({
+      params: { track: track.id },
+      props: { track, scenarios: trackScenarios },
+    }));
+}
+
+interface Props {
+  track: Track;
+  scenarios: CollectionEntry<'scenarios'>[];
+}
+
+const { track, scenarios } = Astro.props;
+---
+
+<BaseLayout
+  title={`${track.label} scenarios — Scenario Practice`}
+  description={`${track.blurb} Scenario-based coding interview practice for the ${track.label} track.`}
+>
+  <h1>{track.label}</h1>
+  <p class="prose">{track.blurb}</p>
+
+  <ul class="card-grid">
+    {scenarios.map((scenario) => <ScenarioCard scenario={scenario} />)}
+  </ul>
+
+  <p class="prose">
+    <a href="/scenarios/">← All scenarios</a>
+  </p>
+</BaseLayout>
