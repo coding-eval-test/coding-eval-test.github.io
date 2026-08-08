@@ -5,6 +5,7 @@ summary: >-
   Join a team maintaining a small internal support desk API. Deliver two user
   stories and fix one reported defect without breaking what already works.
 difficulty: foundational
+track: dotnet-backend
 estimatedMinutes: 90
 stack:
   - .NET 10

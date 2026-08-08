@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'zod';
+import { TRACK_IDS } from './tracks';
 
 const scenarios = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/scenarios' }),
@@ -9,6 +10,7 @@ const scenarios = defineCollection({
     title: z.string(),
     summary: z.string(),
     difficulty: z.enum(['foundational', 'intermediate', 'advanced']),
+    track: z.enum(TRACK_IDS),
     estimatedMinutes: z.int().positive(),
     stack: z.array(z.string()).nonempty(),
     objectives: z.array(z.string()).nonempty(),

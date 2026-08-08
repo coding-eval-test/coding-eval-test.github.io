@@ -5,6 +5,7 @@ summary: >-
   Join a team maintaining a small internal order and inventory API. Deliver three
   user stories and fix two reported defects without breaking what already works.
 difficulty: intermediate
+track: dotnet-backend
 estimatedMinutes: 150
 stack:
   - .NET 10

@@ -6,6 +6,7 @@ summary: >-
   and a sale that opened at the wrong hour for half the world. The hardest
   scenario in the catalog — finish another one first.
 difficulty: advanced
+track: dotnet-backend
 estimatedMinutes: 240
 stack:
   - .NET 10
