@@ -17,6 +17,7 @@ const hours = (data.estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '');
   <p>{data.summary}</p>
   <p class="meta">
     <span class="tag">{data.difficulty}</span>
+    {data.difficulty === 'advanced' && <span class="tag stretch">harder than the interview bar</span>}
     <span class="tag">~{hours} h</span>
     <span class="tag">{data.workItems.length} work items</span>
     <span class="tag">{totalPoints} points</span>
@@ -46,5 +47,11 @@ const hours = (data.estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '');
     color: var(--color-text-muted);
     font-size: 0.9rem;
     margin-bottom: 0;
+  }
+
+  .tag.stretch {
+    border: 1px solid #b45309;
+    color: #b45309;
+    font-weight: 600;
   }
 </style>
