@@ -2,9 +2,14 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ScenarioCard from '../components/ScenarioCard.astro';
+import { trackById } from '../tracks';
 
 const scenarios = (await getCollection('scenarios', ({ data }) => data.published))
-  .sort((a, b) => a.data.order - b.data.order)
+  .sort(
+    (a, b) =>
+      trackById(a.data.track).order - trackById(b.data.track).order ||
+      a.data.order - b.data.order,
+  )
   .slice(0, 3);
 
 const steps = [

@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkItemTable from '../../components/WorkItemTable.astro';
+import { trackById } from '../../tracks';
 
 export async function getStaticPaths() {
   const scenarios = await getCollection('scenarios', ({ data }) => data.published);
@@ -19,12 +20,14 @@ const { scenario } = Astro.props;
 const { data } = scenario;
 const { Content } = await render(scenario);
 const hours = (data.estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '');
+const track = trackById(data.track);
 ---
 
 <BaseLayout title={`${data.title} — Scenario Practice`} description={data.summary}>
   <article>
     <h1>{data.title}</h1>
     <p class="meta">
+      <a class="tag" href={`/scenarios/track/${track.id}/`}>{track.label}</a>
       <span class="tag">{data.difficulty}</span>
       <span class="tag">~{hours} h</span>
       {data.stack.map((item) => <span class="tag">{item}</span>)}
