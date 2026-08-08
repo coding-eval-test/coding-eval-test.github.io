@@ -2,10 +2,16 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScenarioCard from '../../components/ScenarioCard.astro';
+import { TRACKS } from '../../tracks';
 
-const scenarios = (await getCollection('scenarios', ({ data }) => data.published)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const scenarios = await getCollection('scenarios', ({ data }) => data.published);
+
+const sections = TRACKS.map((track) => ({
+  track,
+  scenarios: scenarios
+    .filter((scenario) => scenario.data.track === track.id)
+    .sort((a, b) => a.data.order - b.data.order),
+})).filter((section) => section.scenarios.length > 0);
 ---
 
 <BaseLayout
@@ -19,17 +25,36 @@ const scenarios = (await getCollection('scenarios', ({ data }) => data.published
   </p>
 
   {
-    scenarios.length === 0 ? (
+    sections.length === 0 ? (
       <p class="prose">
         <strong>No scenarios are published yet.</strong> The first one is being
         finished now — check back shortly.
       </p>
     ) : (
-      <ul class="card-grid">
-        {scenarios.map((scenario) => (
-          <ScenarioCard scenario={scenario} />
-        ))}
-      </ul>
+      sections.map(({ track, scenarios: trackScenarios }) => (
+        <section class="track-section">
+          <h2>
+            <a href={`/scenarios/track/${track.id}/`}>{track.label}</a>
+          </h2>
+          <p class="prose track-blurb">{track.blurb}</p>
+          <ul class="card-grid">
+            {trackScenarios.map((scenario) => (
+              <ScenarioCard scenario={scenario} />
+            ))}
+          </ul>
+        </section>
+      ))
     )
   }
 </BaseLayout>
+
+<style>
+  .track-section {
+    margin-top: var(--space-8);
+  }
+
+  .track-blurb {
+    color: var(--color-text-muted);
+    margin-top: 0;
+  }
+</style>
