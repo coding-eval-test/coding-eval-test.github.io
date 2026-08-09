@@ -39,7 +39,7 @@ workItems:
     title: Books come due a day early
     points: 20
 regressionPoints: 30
-published: false
+published: true
 order: 1
 ---
 
