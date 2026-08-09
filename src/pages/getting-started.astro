@@ -71,9 +71,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>
       A summary prints one line per work item. Your goal is to turn each
       <code>FAIL</code> into a <code>PASS</code> while
-      <code>Regression</code> stays green. <code>NO TESTS</code> means the work
-      item has no tests to run at all — that is a problem with the scenario, not
-      with your work; tell whoever runs your cohort.
+      <code>Regression</code> stays green. <code>NO TESTS</code> usually means
+      the work item's tests aren't being discovered — if you renamed or skipped
+      tests, restore them; if the repo is untouched, it's a scenario problem
+      worth reporting. <code>SKIPPED</code> means the category contains skipped
+      tests (<code>Skip = "…"</code> / <code>@Disabled</code>) and scores zero
+      until every test in it runs.
     </p>
 
     <h2>Get your feedback</h2>
