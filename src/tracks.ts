@@ -14,6 +14,12 @@ export const TRACKS = [
     blurb: 'Extend and debug realistic ASP.NET Core APIs.',
     order: 1,
   },
+  {
+    id: 'java-backend',
+    label: 'Java Backend',
+    blurb: 'Extend and debug realistic Spring Boot APIs.',
+    order: 2,
+  },
 ] as const;
 
 export type Track = (typeof TRACKS)[number];
