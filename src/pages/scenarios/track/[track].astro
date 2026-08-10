@@ -2,21 +2,15 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ScenarioCard from '../../../components/ScenarioCard.astro';
-import { TRACKS, type Track } from '../../../tracks';
+import { type Track } from '../../../tracks';
+import { groupScenariosByTrack } from '../../../lib/scenarios';
 
 export async function getStaticPaths() {
   const scenarios = await getCollection('scenarios', ({ data }) => data.published);
-  return TRACKS.map((track) => ({
-    track,
-    scenarios: scenarios
-      .filter((scenario) => scenario.data.track === track.id)
-      .sort((a, b) => a.data.order - b.data.order),
-  }))
-    .filter(({ scenarios: trackScenarios }) => trackScenarios.length > 0)
-    .map(({ track, scenarios: trackScenarios }) => ({
-      params: { track: track.id },
-      props: { track, scenarios: trackScenarios },
-    }));
+  return groupScenariosByTrack(scenarios).map(({ track, scenarios: trackScenarios }) => ({
+    params: { track: track.id },
+    props: { track, scenarios: trackScenarios },
+  }));
 }
 
 interface Props {

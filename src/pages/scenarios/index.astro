@@ -2,16 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ScenarioCard from '../../components/ScenarioCard.astro';
-import { TRACKS } from '../../tracks';
+import { groupScenariosByTrack } from '../../lib/scenarios';
 
 const scenarios = await getCollection('scenarios', ({ data }) => data.published);
 
-const sections = TRACKS.map((track) => ({
-  track,
-  scenarios: scenarios
-    .filter((scenario) => scenario.data.track === track.id)
-    .sort((a, b) => a.data.order - b.data.order),
-})).filter((section) => section.scenarios.length > 0);
+const sections = groupScenariosByTrack(scenarios);
 ---
 
 <BaseLayout

@@ -2,15 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ScenarioCard from '../components/ScenarioCard.astro';
-import { trackById } from '../tracks';
+import { groupScenariosByTrack } from '../lib/scenarios';
 
-const scenarios = (await getCollection('scenarios', ({ data }) => data.published))
-  .sort(
-    (a, b) =>
-      trackById(a.data.track).order - trackById(b.data.track).order ||
-      a.data.order - b.data.order,
-  )
-  .slice(0, 3);
+const scenarios = await getCollection('scenarios', ({ data }) => data.published);
+const trackSections = groupScenariosByTrack(scenarios);
 
 const steps = [
   {
@@ -60,14 +55,22 @@ const steps = [
   </section>
 
   {
-    scenarios.length > 0 && (
+    trackSections.length > 0 && (
       <section>
         <h2>Available now</h2>
-        <ul class="card-grid">
-          {scenarios.map((scenario) => (
-            <ScenarioCard scenario={scenario} />
-          ))}
-        </ul>
+        {trackSections.map(({ track, scenarios: trackScenarios }) => (
+          <div class="track-group">
+            <h3>
+              <a href={`/scenarios/track/${track.id}/`}>{track.label}</a>
+            </h3>
+            <p class="track-blurb">{track.blurb}</p>
+            <ul class="card-grid">
+              {trackScenarios.map((scenario) => (
+                <ScenarioCard scenario={scenario} />
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     )
   }
@@ -112,6 +115,19 @@ const steps = [
   }
 
   .steps p {
+    margin-top: 0;
+    color: var(--color-text-muted);
+  }
+
+  .track-group {
+    margin-top: var(--space-6);
+  }
+
+  .track-group h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .track-blurb {
     margin-top: 0;
     color: var(--color-text-muted);
   }
