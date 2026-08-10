@@ -24,13 +24,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h2>Option A — GitHub Codespaces</h2>
     <p>
       From your repository, choose <strong>Code → Codespaces → Create codespace</strong>.
-      The environment installs the SDK and restores packages for you. The
+      The environment installs the toolchain and dependencies for you. The
       scenario's README gives the one command that starts it.
     </p>
     <p>
-      The database is created, migrated, and seeded on first run. When the port is
-      forwarded, open <code>/swagger</code> to explore the API. Debugging works
-      with F5.
+      The database is created, migrated, and seeded on first run — no database
+      setup, no Docker, no other services. The README shows how to explore the
+      running API.
     </p>
     <p>
       Codespaces has a monthly free allowance on personal accounts. If you run
@@ -47,21 +47,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <h2>Option B — your own machine</h2>
     <p>
-      Install the .NET SDK named on the scenario page, clone your repository, then
-      run <code>dotnet restore</code> and the run command from the scenario's
-      README. No database setup, no Docker, no other services.
+      Clone your repository and run the one command in the scenario's README.
+      Each scenario page lists the stack it targets; the only prerequisite is
+      the toolchain you already use for that stack every day. No database setup,
+      no Docker, no other services.
     </p>
 
     <h2>Run the tests</h2>
     <p>
       The suite ships red for every work item and green for everything that
-      already worked. Run everything:
+      already worked. Run it with your stack's usual test command — the README
+      names it.
     </p>
-    <pre><code>dotnet test</code></pre>
     <p>
-      Or get the same per-item breakdown the grader produces. Every scenario
-      ships these two scripts, and they read the same work-item list the grader
-      does, so the split always matches:
+      To get the same per-item breakdown the grader produces, use the check
+      script instead. Every scenario ships these two scripts, and they read the
+      same work-item list the grader does, so the split always matches:
     </p>
     <pre><code># macOS / Linux
 ./scripts/check.sh
