@@ -36,7 +36,7 @@ workItems:
     title: Doubled revenue after a feed resend
     points: 20
 regressionPoints: 30
-published: false
+published: true
 order: 1
 ---
 
