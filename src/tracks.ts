@@ -20,6 +20,12 @@ export const TRACKS = [
     blurb: 'Extend and debug realistic Spring Boot APIs.',
     order: 2,
   },
+  {
+    id: 'data-engineering',
+    label: 'Data Engineering',
+    blurb: 'Extend and debug realistic PySpark data pipelines.',
+    order: 3,
+  },
 ] as const;
 
 export type Track = (typeof TRACKS)[number];
