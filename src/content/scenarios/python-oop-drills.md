@@ -44,7 +44,7 @@ workItems:
     type: problem
     title: Properties and validation
     points: 20
-published: false
+published: true
 order: 1
 ---
 
