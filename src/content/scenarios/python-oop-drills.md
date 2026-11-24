@@ -3,7 +3,7 @@ id: python-oop-drills
 title: Python OOP & Exceptions
 summary: >-
   Five short, independent problems on classes, inheritance, the data model,
-  runtime object manipulation and custom exceptions. Each hands you a small
+  properties, runtime object manipulation and custom exceptions. Each hands you a small
   piece of working code and a list of requirements, the way a timed coding
   evaluation does.
 difficulty: foundational
@@ -66,8 +66,8 @@ any order.
 ## How you are assessed
 
 Every push runs the grading workflow and writes a scorecard. Each problem is
-worth 20 points and earns partial credit: pass eight of a problem's nine tests
-and you earn most of its points, rounded down. Breaking behaviour that already
-worked halves what that one problem earns — it never touches the others. The
-tests are counted, so removing, adding or skipping one scores that problem
-zero. There is no rubric: the score is the tests.
+worth 20 points and earns partial credit, rounded down: pass eight of P1's nine
+tests and you earn 17 of its 20 points. Breaking behaviour that already worked
+halves what that one problem earns — it never touches the others. The tests are
+counted, so removing, adding or skipping one scores that problem zero. There is
+no rubric: the score is the tests.
