@@ -50,7 +50,7 @@ order: 1
 
 ## What this is
 
-Not a scenario. There is no backlog and no single codebase to learn Ã¢â‚¬â€ there are
+Not a scenario. There is no backlog and no single codebase to learn — there are
 five separate problems, each about fifteen minutes long, each in its own folder
 with its own statement, starter code and tests. It rehearses the kind of
 evaluation that hands you a small project and a short list of requirements and
@@ -59,7 +59,7 @@ scores how many test cases you get through.
 ## What you get
 
 For every problem: a few dozen lines of code that already work, a statement
-listing what to build against them, and two test files Ã¢â‚¬â€ one for the
+listing what to build against them, and two test files — one for the
 requirements, one for the behaviour that must keep working. Do the problems in
 any order.
 
@@ -68,6 +68,6 @@ any order.
 Every push runs the grading workflow and writes a scorecard. Each problem is
 worth 20 points and earns partial credit: pass eight of a problem's nine tests
 and you earn most of its points, rounded down. Breaking behaviour that already
-worked halves what that one problem earns Ã¢â‚¬â€ it never touches the others. The
-tests are counted, so removing or skipping one scores that problem zero. There
-is no rubric: the score is the tests.
+worked halves what that one problem earns — it never touches the others. The
+tests are counted, so removing, adding or skipping one scores that problem
+zero. There is no rubric: the score is the tests.
