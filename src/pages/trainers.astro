@@ -35,6 +35,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Because each repository belongs to the trainee, scores are visible to them
       and to anyone they share the repository with. There is no cohort dashboard.
     </p>
+    <p>
+      <strong>Problem sets are scored differently.</strong> Each problem earns
+      partial credit for the tests that pass, rounded down, and a failing
+      existing-behaviour test halves that one problem. There is no regression
+      slice and no rubric. The tests are counted: a test a trainee adds inside a
+      problem's <code>tests/</code> folder scores that problem zero, so
+      experiments belong outside it. Review a problem set by reading the diff
+      against each problem's <code>PROBLEM.md</code>. The baseline recipe below
+      works the same way.
+    </p>
 
     <h2>Grading integrity</h2>
     <p>

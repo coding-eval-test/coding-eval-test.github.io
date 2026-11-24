@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { timeLabel } from '../lib/scenarios';
 
 interface Props {
   scenario: CollectionEntry<'scenarios'>;
@@ -9,17 +10,19 @@ const { scenario } = Astro.props;
 const { data } = scenario;
 const totalPoints =
   data.workItems.reduce((sum, item) => sum + item.points, 0) + data.regressionPoints;
-const hours = (data.estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '');
 ---
 
 <li class="card">
   <h3><a href={`/scenarios/${data.id}/`}>{data.title}</a></h3>
   <p>{data.summary}</p>
   <p class="meta">
+    {data.format === 'problem-set' && <span class="tag">problem set</span>}
     <span class="tag">{data.difficulty}</span>
     {data.difficulty === 'advanced' && <span class="tag stretch">harder than the interview bar</span>}
-    <span class="tag">~{hours} h</span>
-    <span class="tag">{data.workItems.length} work items</span>
+    <span class="tag">{timeLabel(data.estimatedMinutes, data.format)}</span>
+    <span class="tag">
+      {data.workItems.length} {data.format === 'problem-set' ? 'problems' : 'work items'}
+    </span>
     <span class="tag">{totalPoints} points</span>
   </p>
   <p class="stack">{data.stack.join(' · ')}</p>

@@ -11,6 +11,7 @@ const scenarios = defineCollection({
     summary: z.string(),
     difficulty: z.enum(['foundational', 'intermediate', 'advanced']),
     track: z.enum(TRACK_IDS),
+    format: z.enum(['scenario', 'problem-set']).default('scenario'),
     estimatedMinutes: z.int().positive(),
     stack: z.array(z.string()).nonempty(),
     objectives: z.array(z.string()).nonempty(),
@@ -20,7 +21,7 @@ const scenarios = defineCollection({
       .array(
         z.object({
           id: z.string(),
-          type: z.enum(['story', 'bug']),
+          type: z.enum(['story', 'bug', 'problem']),
           title: z.string(),
           points: z.int().positive(),
         }),

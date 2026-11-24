@@ -95,3 +95,22 @@ test('treats a missing Regression category as regressionPoints 0', () => {
 
   assert.deepEqual(comparePoints(site, noRegression), []);
 });
+
+test('a problem set with no Regression category matches on P ids alone', () => {
+  const scenario = {
+    workItems: [1, 2, 3, 4, 5].map((n) => ({ id: `P${n}`, points: 20 })),
+    regressionPoints: 0,
+  };
+  const manifest = {
+    categories: [1, 2, 3, 4, 5].map((n) => ({
+      category: `P${n}`, points: 20, path: `problems/p${n}`, tests: 9, guards: 4,
+    })),
+  };
+  assert.deepEqual(comparePoints(scenario, manifest), []);
+});
+
+test('a problem set whose points drift from the template is reported', () => {
+  const scenario = { workItems: [{ id: 'P1', points: 25 }], regressionPoints: 0 };
+  const manifest = { categories: [{ category: 'P1', points: 20, path: 'p', tests: 9, guards: 4 }] };
+  assert.deepEqual(comparePoints(scenario, manifest), ['P1: site says 25 points, template grades 20']);
+});

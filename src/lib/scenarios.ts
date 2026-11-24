@@ -6,6 +6,15 @@ export interface TrackSection {
   scenarios: CollectionEntry<'scenarios'>[];
 }
 
+/** "~1.5 h" for a scenario; "~75 min" for a problem set, which is planned in minutes. */
+export function timeLabel(
+  estimatedMinutes: number,
+  format: 'scenario' | 'problem-set',
+): string {
+  if (format === 'problem-set') return `~${estimatedMinutes} min`;
+  return `~${(estimatedMinutes / 60).toFixed(1).replace(/\.0$/, '')} h`;
+}
+
 /**
  * Group published scenarios into per-track sections, tracks in registry
  * order, scenarios by frontmatter order; empty tracks are dropped.

@@ -1,7 +1,7 @@
 ---
 interface WorkItem {
   id: string;
-  type: 'story' | 'bug';
+  type: 'story' | 'bug' | 'problem';
   title: string;
   points: number;
 }
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const { workItems, regressionPoints } = Astro.props;
+const TYPE_LABELS = { story: 'User story', bug: 'Defect', problem: 'Problem' } as const;
 const total = workItems.reduce((sum, item) => sum + item.points, 0) + regressionPoints;
 ---
 
@@ -30,7 +31,7 @@ const total = workItems.reduce((sum, item) => sum + item.points, 0) + regression
         workItems.map((item) => (
           <tr>
             <td><code>{item.id}</code></td>
-            <td>{item.type === 'story' ? 'User story' : 'Defect'}</td>
+            <td>{TYPE_LABELS[item.type]}</td>
             <td>{item.title}</td>
             <td>{item.points}</td>
           </tr>
