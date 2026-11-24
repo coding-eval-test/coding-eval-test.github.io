@@ -55,6 +55,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <h2>Run the tests</h2>
     <p>
+      The catalog holds two kinds of exercise. A <strong>scenario</strong> is one
+      codebase with a backlog: each work item scores only when all of its tests
+      pass, and existing behaviour is worth points of its own. A
+      <strong>problem set</strong> is several short, independent problems in one
+      repository: each problem earns partial credit for the tests that pass, and
+      breaking behaviour that already worked halves that one problem. What
+      follows describes scenarios; a problem set's README covers its own
+      commands.
+    </p>
+    <p>
       The suite ships red for every work item and green for everything that
       already worked. Run it with your stack's usual test command — the README
       names it.

@@ -26,6 +26,12 @@ export const TRACKS = [
     blurb: 'Extend and debug realistic PySpark data pipelines.',
     order: 3,
   },
+  {
+    id: 'python',
+    label: 'Python',
+    blurb: 'Core Python practice: object-oriented design, exceptions, and the object model.',
+    order: 4,
+  },
 ] as const;
 
 export type Track = (typeof TRACKS)[number];
