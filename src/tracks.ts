@@ -32,6 +32,12 @@ export const TRACKS = [
     blurb: 'Core Python practice: object-oriented design, exceptions, and the object model.',
     order: 4,
   },
+  {
+    id: 'sql',
+    label: 'SQL',
+    blurb: 'Write and debug the reporting queries behind a realistic business database.',
+    order: 5,
+  },
 ] as const;
 
 export type Track = (typeof TRACKS)[number];

@@ -28,9 +28,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       scenario's README gives the one command that starts it.
     </p>
     <p>
-      The database is created, migrated, and seeded on first run — no database
-      setup, no Docker, no other services. The README shows how to explore the
-      running API.
+      In an API scenario the database is created, migrated, and seeded on first
+      run — no database setup, no Docker, no other services. The README shows how
+      to explore the running API. In a SQL scenario the database is already
+      running, loaded with sample data, when the codespace opens.
     </p>
     <p>
       Codespaces has a monthly free allowance on personal accounts. If you run
@@ -49,8 +50,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>
       Clone your repository and run the one command in the scenario's README.
       Each scenario page lists the stack it targets; the only prerequisite is
-      the toolchain you already use for that stack every day. No database setup,
-      no Docker, no other services.
+      the toolchain you already use for that stack every day. Outside the SQL
+      track: no database setup, no Docker, no other services. A SQL scenario
+      also needs Docker running — its check script starts the database in a
+      container for you.
     </p>
 
     <h2>Run the tests</h2>
